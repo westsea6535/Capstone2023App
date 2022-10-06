@@ -3,53 +3,112 @@ import { useEffect, useState } from 'react';
 import testData from '../test/testData';
 
 
-const renderItem = ({ item }) => {
+const Goods = ({ item, width }) => {
   return (
-    <View style={{backgroundColor: '#f9c2ff', flex: 1, width: 200, height: 200, marginBottom: 20}}>
+    <View 
+      style={{
+        width, 
+        height: 200,
+        alignItems: 'center',
+      }}>
       <Image 
         source={{uri: item.img}} 
-        style={styles.image}></Image>
-      <Text>{item.img}</Text>
-      <Text>{item.title}</Text>
+        style={{
+          width: width - 5,
+          height: width - 5,
+          borderRadius: 5,
+        }}>
+      </Image>
+      <View>
+        <Text>{item.title}</Text>
+        <Text>{item.id}</Text>
+      </View>
     </View>
   )
 }
-const HomeScreen = () => {
-  // const [data, setData] = useState([]);
 
-  // useEffect(() => {
-  //   setData(testData);
-  // }, [])
+const HomeScreen = () => {
+  const [containerWidth, setContainerWidth] = useState(0);
+  const margins = 20;
+  const columnNum = 2;
+  // changing key value by condition must be added to change columnNUm 
+
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{flex: 1,}}>
-        <TextInput></TextInput>
-        <Text>This is Home</Text>
-        <Text>{testData.length}</Text>
-        <Text>{testData[1].title}</Text>
+      <View style={{}}>
+        <FlatList
+          ListHeaderComponent={
+            <View>
+              <TextInput></TextInput>
+              <Text style={{fontSize: 20,}}>어서오세요</Text>
+              <ScrollView
+                horizontal={true}
+                style={{
+                  // width: containerWidth,
+                  // height: 200,
+                  marginVertical: 50, 
+                }} 
+                snapToAlignment={'center'}
+                snapToInterval={containerWidth}
+                decelerationRate={100}
+              >
+                <View style={{
+                  backgroundColor: 'blue', 
+                  width: containerWidth,
+                  height: 150,
+                }}/>  
+                <View style={{
+                  backgroundColor: 'red', 
+                  width: containerWidth,
+                  height: 150,
+                }}/>  
+                <View style={{
+                  backgroundColor: 'blue', 
+                  width: containerWidth,
+                  height: 150,
+                }}/>  
+                <View style={{
+                  backgroundColor: 'red', 
+                  width: containerWidth,
+                  height: 150,
+                }}/>  
+                <View style={{
+                  backgroundColor: 'blue', 
+                  width: containerWidth,
+                  height: 150,
+                }}/>  
+              </ScrollView>
+            </View>
+          }
+          data={testData}
+          horizontal={false}
+          columnWrapperStyle={{
+            justifyContent: 'space-between',
+            marginBottom: 20,
+            paddingHorizontal: 10,
+          }}
+          onLayout={e => setContainerWidth(e.nativeEvent.layout.width)}
+          keyExtractor={(item, index) => String(item.id)} 
+          renderItem={({item}) => (
+            <Goods item={item} 
+              width={(containerWidth - margins) / columnNum}
+            />)}
+          numColumns={columnNum}
+        />
       </View>
-      <FlatList
-        data={testData}
-        keyExtractor={(item, index) => String(item.id)} 
-        renderItem={renderItem}
-        
-      />
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
   },
   goods: {
     flex: 1,
     borderWidth: 5,
   },
-  image: {
-    width: 50,
-    height: 50,
-    backgroundColor: 'black',
+  test1: {
   }
 })
 
