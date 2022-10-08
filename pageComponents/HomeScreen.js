@@ -29,7 +29,7 @@ const Goods = ({ item, width }) => {
 
 const HomeScreen = () => {
   const [containerWidth, setContainerWidth] = useState(0);
-  const margins = 20;
+  const marginBetween = 20;
   const columnNum = 2;
   // changing key value by condition must be added to change columnNUm 
 
@@ -92,7 +92,7 @@ const HomeScreen = () => {
           keyExtractor={(item, index) => String(item.id)} 
           renderItem={({item}) => (
             <Goods item={item} 
-              width={(containerWidth - margins) / columnNum}
+              width={(containerWidth - marginBetween) / columnNum}
             />)}
           numColumns={columnNum}
         />
