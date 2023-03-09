@@ -8,7 +8,6 @@ import FavoriteScreen from './pageComponents/FavoriteScreen';
 import MyPageScreen from './pageComponents/MyPageScreen';
 
 const Tab = createBottomTabNavigator();
-const color = '#D6FF27';
 
 const App = () => {
   return (
